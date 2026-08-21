@@ -61,12 +61,30 @@
         
         #loading { display: none; text-align: center; padding: 3rem; font-weight: bold; color: var(--primary); font-size: 1.2rem; }
         .score-row { display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid var(--border); text-align: left;}
+    
+    /* Mode Ukuran Font */
+        .font-small #q-text { font-size: 0.95rem; }
+        .font-small .option-label { font-size: 0.9rem; }
+        
+        .font-normal #q-text { font-size: 1.1rem; }
+        .font-normal .option-label { font-size: 1rem; }
+        
+        .font-large #q-text { font-size: 1.3rem; }
+        .font-large .option-label { font-size: 1.15rem; }
+
     </style>
 </head>
 <body>
     <header>
         <div style="font-size: 1.2rem; font-weight: bold; text-align: center;">Tryout SKD Dua Dimensi</div>
         <div class="header-controls">
+            <!-- Dropdown Mode Font -->
+            <select onchange="ubahUkuranFont(this.value)" style="padding: 0.3rem; border-radius: 4px; background: rgba(255,255,255,0.2); color: white; border: 1px solid white; font-size: 0.9rem; cursor: pointer; outline: none;">
+                <option value="font-small" style="color: black;">Kecil</option>
+                <option value="font-normal" selected style="color: black;">Sedang</option>
+                <option value="font-large" style="color: black;">Besar</option>
+            </select>
+            
             <div id="timer" class="timer">60:00</div>
             <button id="btn-toggle-nav" class="btn-menu" onclick="toggleSidebar()">☰</button>
         </div>
@@ -155,6 +173,20 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('hidden');
         }
+
+        // Fungsi untuk mengubah ukuran font
+        function ubahUkuranFont(ukuran) {
+            const quizScreen = document.getElementById('quiz-screen');
+            // Hapus semua class font sebelumnya
+            quizScreen.classList.remove('font-small', 'font-normal', 'font-large');
+            // Tambahkan class font yang baru dipilih
+            quizScreen.classList.add(ukuran);
+        }
+        
+        // Atur ukuran default saat halaman dimuat
+        document.addEventListener("DOMContentLoaded", () => {
+            ubahUkuranFont('font-normal');
+        });
 
         // Event Submit Biodata
         document.getElementById('biodata-form').addEventListener('submit', async (e) => {
